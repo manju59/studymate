@@ -6,7 +6,8 @@ class WatsonXClient:
         self.credentials = {
             "url": api_url,
             "apikey": api_key,
-            "version": "5.0"  # Added this line to fix the WMLClientError
+            "version": "5.0",  # Added this line to fix the WMLClientError
+            "username": "apikey" # Added this line to fix the missing username error
         }
         self.client = APIClient(self.credentials)
 
