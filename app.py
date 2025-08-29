@@ -46,7 +46,8 @@ if query:
         st.markdown(f"**Chunk {i}:** {chunk[:300]}…")
 
     # Generate answer
-    client = WatsonXClient()
+    # This line has been corrected to pass the required arguments
+    client = WatsonXClient(api_key=api_key, api_url=api_url)
     with st.spinner("Generating answer..."):
         answer = client.generate_answer(query, top_chunks)
 
