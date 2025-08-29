@@ -1,7 +1,7 @@
 import streamlit as st
 from config import Settings
 from pdf_utils import extract_text_from_pdf
-from index_utils import build_index
+from index_utils import build_faiss_index
 from watsonx_client import WatsonXClient
 from text_utils import chunk_text, retrieve_top_k  # Make sure these exist
 
