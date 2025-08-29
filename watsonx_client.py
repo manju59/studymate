@@ -1,5 +1,5 @@
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-from ibm_watsonx import GenerativeServiceV1
+from ibm_watsonx_ai.foundation_models import Model
 from config import Settings  # Adjusted import for consistency
 
 class WatsonXClient:
