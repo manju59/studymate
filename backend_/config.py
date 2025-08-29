@@ -1,19 +1,17 @@
-# backend/config.py
-
 import os
 import streamlit as st
 
 class Settings:
-    MISTRAL_API_KEY = os.getenv("MISTRAL_API_KEY")
-    MISTRAL_API_URL = os.getenv("MISTRAL_API_URL")
-
     @classmethod
-    def validate(cls):
-        if not cls.MISTRAL_API_KEY or not cls.MISTRAL_API_URL:
-            st.error(
-                "Please set MISTRAL_API_KEY and MISTRAL_API_URL environment variables."
-            )
+    def get(cls):
+        api_key = os.getenv("MISTRAL_API_KEY")
+        api_url = os.getenv("MISTRAL_API_URL")
+
+        if not api_key or not api_url:
+            st.error("Please set MISTRAL_API_KEY and MISTRAL_API_URL environment variables.")
             st.stop()
 
-# Validate at import time
-Settings.validate()
+        return {
+            "api_key": api_key,
+            "api_url": api_url
+        }
