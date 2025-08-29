@@ -39,8 +39,8 @@ index, _ = build_faiss_index(chunks)
 query = st.text_input("Ask a question about your documents:")
 if query:
     with st.spinner("Retrieving context..."):
-        top_chunks = retrieve_top_k(query, index, chunks, 5)
-        
+        top_chunks = retrieve_top_k(chunks, query, k=5)
+
     st.subheader("🔍 Retrieved Context")
     for i, chunk in enumerate(top_chunks, 1):
         st.markdown(f"**Chunk {i}:** {chunk[:300]}…")
