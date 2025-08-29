@@ -5,6 +5,11 @@ from config import Settings
 from pdf_utils import extract_text_from_pdf
 from index_utils import build_index
 from watsonx_client import WatsonXClient
+from config import Settings
+
+config = Settings.get()
+api_key = config["api_key"]
+api_url = config["api_url"]
 
 st.set_page_config(page_title="StudyMate PDF Q&A", layout="wide")
 st.title("📚 StudyMate: AI-Powered PDF Q&A Assistant")
