@@ -33,7 +33,7 @@ for f in pdf_files:
 chunks = chunk_text(all_text)
 
 # Build FAISS index
-index, _ = build_index(chunks)
+index, _ = build_faiss_index(chunks)
 
 # User question
 query = st.text_input("Ask a question about your documents:")
