@@ -5,7 +5,8 @@ class WatsonXClient:
     def __init__(self, api_key, api_url):
         self.credentials = {
             "url": api_url,
-            "apikey": api_key
+            "apikey": api_key,
+            "version": "5.0"  # Added this line to fix the WMLClientError
         }
         self.client = APIClient(self.credentials)
 
