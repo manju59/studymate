@@ -1,43 +1,47 @@
-# watsonx_client.py
-
-from ibm_watsonx_ai.foundation_models import Model
-from ibm_watsonx_ai.metaclasses import Models
 from ibm_watsonx_ai.client import APIClient
+from ibm_watsonx_ai.foundation_models import Model
 
 class WatsonXClient:
     def __init__(self, api_key, api_url):
-        # Configure the client with your credentials
-        self.client = APIClient(api_key=api_key, service_url=api_url)
+        self.credentials = {
+            "url": api_url,
+            "apikey": api_key
+        }
+        self.client = APIClient(self.credentials)
 
     def generate_answer(self, query, top_chunks):
-        # Define the model to use and its parameters
-        model_id = 'google/flan-ul2'  # Replace with the actual model ID you want to use
+        # Configure the model and its parameters
+        model_id = 'google/flan-t5-xl' # or 'google/flan-ul2' or other models
+        project_id = "YOUR_PROJECT_ID" # <-- Replace with your IBM Cloud Project ID
+        
+        # A simple prompt template for Q&A
+        prompt = f"""
+        Given the following context from a document, answer the question.
+        
+        Context:
+        {top_chunks}
+        
+        Question:
+        {query}
+        
+        Answer:
+        """
+
+        # Model parameters
         parameters = {
             "decoding_method": "greedy",
-            "max_new_tokens": 100,
-            "min_new_tokens": 1,
-            "temperature": 0.0,
-            "random_seed": 42
+            "max_new_tokens": 500,
+            "min_new_tokens": 50,
         }
 
-        # Create the prompt for the model
-        prompt = f"""Based on the following context, answer the question.
-Context:
-{top_chunks}
-
-Question:
-{query}
-
-Answer:"""
-
-        # Instantiate the Model class
-        watsonx_model = Model(
+        # Instantiate the Model
+        model = Model(
             model_id=model_id,
             params=parameters,
-            credentials=self.client.credentials,
-            project_id="YOUR_PROJECT_ID"  # Replace with your project ID
+            credentials=self.credentials,
+            project_id=project_id
         )
 
-        # Generate the response
-        response = watsonx_model.generate_text(prompt=prompt)
+        # Generate the text
+        response = model.generate_text(prompt)
         return response
